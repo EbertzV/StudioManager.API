@@ -11,7 +11,7 @@ namespace StudioManager.Infra
 
         public ReservasContext()
         {
-            ConnectionString = "Data Source=localhost;Initial Catalog=StudioManager;Integrated Security=True";
+            ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=StudioManager;Integrated Security=True";
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)

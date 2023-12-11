@@ -12,7 +12,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StudioManager.Application\StudioManager.Application.csproj" />
+    <ProjectReference Include="..\StudioManager.DataAccess\StudioManager.DataAccess.csproj" />
     <ProjectReference Include="..\StudioManager.Domain\StudioManager.Domain.csproj" />
+    <ProjectReference Include="..\StudioManager.Infra.SqlServer.Query\StudioManager.Infra.SqlServer.Query.csproj" />
     <ProjectReference Include="..\StudioManager.Infra.SqlServer\StudioManager.Infra.SqlServer.csproj" />
   </ItemGroup>
 
