@@ -3,17 +3,14 @@
     public struct DiaDaSemanaViewModel
     {
         public DiaDaSemanaViewModel(
-            DayOfWeek diaDaSemana, 
-            int ordem,
+            DateTime dia, 
             ReservaViewModel[] reservas)
         {
-            DiaDaSemana = diaDaSemana;
-            Ordem = ordem;
+            Dia = dia;
             Reservas = reservas;
         }
 
-        public DayOfWeek DiaDaSemana { get; }
-        public int Ordem { get; }
+        public DateTime Dia { get; }
         public ReservaViewModel[] Reservas { get; }
     }
 }

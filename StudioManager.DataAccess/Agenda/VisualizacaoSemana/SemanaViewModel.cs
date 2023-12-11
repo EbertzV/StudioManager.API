@@ -7,6 +7,6 @@
             Dias = dias;
         }
 
-        DiaDaSemanaViewModel[] Dias { get; }
+        public DiaDaSemanaViewModel[] Dias { get; }
     }
 }

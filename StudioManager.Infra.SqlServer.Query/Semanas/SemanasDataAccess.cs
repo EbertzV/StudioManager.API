@@ -2,6 +2,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StudioManager.Crosscutting;
+using StudioManager.DataAccess;
+using StudioManager.DataAccess.Agenda;
 using StudioManager.DataAccess.Agenda.VisualizacaoSemana;
 using StudioManager.Infra.SqlServer.Query.Semanas.DTO;
 
@@ -15,10 +17,11 @@ namespace StudioManager.Infra.SqlServer.Query.Semanas
         {
 			_stringConexao = configuration.GetSection("ConnectionStrings:Default").Value;
         }
-        public async Task<Resultado<SemanaViewModel>> RecuperarReservasDaSemanaAPartirDe(DateTime quando)
+        public async Task<Resultado<SemanaViewModel>> RecuperarReservasDaSemanaAPartirDe(DateTime quando, int diasParaFrente)
         {
             const string sql = @"DECLARE @inicio DATETIME = @quando;
-								DECLARE @fim DATETIME = DATEADD(DAY, 7, @inicio);
+								DECLARE @dias INT = @diasParaFrente;
+								DECLARE @fim DATETIME = DATEADD(DAY, @dias, @inicio);
 
 								WITH ReservasDoDia AS (
 									SELECT	Reservas.Id,
@@ -41,9 +44,18 @@ namespace StudioManager.Infra.SqlServer.Query.Semanas
 			try
 			{
 				await conexao.OpenAsync();
-				var resultado = await conexao.QueryAsync<ReservaDTO>(sql, new { quando });
-				
-				
+				var resultado = await conexao.QueryAsync<ReservaDTO>(sql, new { quando, diasParaFrente });
+
+				var dias = resultado.GroupBy(
+					k => k.Inicio.Date,
+					v => new ReservaViewModel(
+						v.Id, 
+						new ClienteViewModel(), 
+						v.Inicio.TimeOfDay, 
+						v.Fim.TimeOfDay),
+					(k, v) => new DiaDaSemanaViewModel(k, v.ToArray())); ;
+
+				return new SemanaViewModel(dias.ToArray());
 
 			} catch (Exception ex)
 			{

@@ -11,12 +11,13 @@ namespace StudioManager.API.Controllers.Visualizacao.Reserva
         [HttpGet]
         public async Task<IActionResult> RecuperarReservasPorSemana(
             [FromServices] ISemanasDataAccess semanasDataAccess, 
-            [FromQuery] DateTime referencia)
+            [FromQuery] DateTime referencia,
+            [FromQuery] int diasParaFrente)
         {
             var inicio = referencia.AddDays(-(int)referencia.DayOfWeek).Date;
-            if (await semanasDataAccess.RecuperarReservasDaSemanaAPartirDe(inicio) is var resultado && resultado.EhFalha)
+            if (await semanasDataAccess.RecuperarReservasDaSemanaAPartirDe(inicio, diasParaFrente) is var resultado && resultado.EhFalha)
                 return new BadRequestObjectResult(resultado.Falha);
-            return new OkObjectResult(resultado.Sucesso);
+            return new OkObjectResult(resultado.Sucesso.Dias);
         }
     }
 }
