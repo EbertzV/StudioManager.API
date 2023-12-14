@@ -1,8 +1,8 @@
 ﻿namespace StudioManager.DataAccess.Agenda
 {
-    public struct ReservaViewModel
+    public struct HorarioViewModel
     {
-        public ReservaViewModel(int id, ClienteViewModel cliente, TimeSpan inicio, TimeSpan fim)
+        public HorarioViewModel(int id, ClienteViewModel cliente, TimeSpan inicio, TimeSpan fim)
         {
             Id = id;
             Cliente = cliente;

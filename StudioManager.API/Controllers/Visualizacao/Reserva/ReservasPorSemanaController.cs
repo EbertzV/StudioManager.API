@@ -17,7 +17,7 @@ namespace StudioManager.API.Controllers.Visualizacao.Reserva
             var inicio = referencia.AddDays(-(int)referencia.DayOfWeek).Date;
             if (await semanasDataAccess.RecuperarReservasDaSemanaAPartirDe(inicio, diasParaFrente) is var resultado && resultado.EhFalha)
                 return new BadRequestObjectResult(resultado.Falha);
-            return new OkObjectResult(resultado.Sucesso.Dias);
+            return new OkObjectResult(resultado.Sucesso);
         }
     }
 }

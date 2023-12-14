@@ -4,6 +4,6 @@ namespace StudioManager.DataAccess.Agenda.VisualizacaoSemana
 {
     public interface ISemanasDataAccess
     {
-        Task<Resultado<SemanaViewModel>> RecuperarReservasDaSemanaAPartirDe(DateTime quando, int diasParaFrente);
+        Task<Resultado<DiaDaSemanaViewModel[]>> RecuperarReservasDaSemanaAPartirDe(DateTime quando, int diasParaFrente);
     }
 }

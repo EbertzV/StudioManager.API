@@ -17,7 +17,7 @@ namespace StudioManager.Infra.SqlServer.Query.Semanas
         {
 			_stringConexao = configuration.GetSection("ConnectionStrings:Default").Value;
         }
-        public async Task<Resultado<SemanaViewModel>> RecuperarReservasDaSemanaAPartirDe(DateTime quando, int diasParaFrente)
+        public async Task<Resultado<DiaDaSemanaViewModel[]>> RecuperarReservasDaSemanaAPartirDe(DateTime quando, int diasParaFrente)
         {
             const string sql = @"DECLARE @inicio DATETIME = @quando;
 								DECLARE @dias INT = @diasParaFrente;
@@ -48,14 +48,14 @@ namespace StudioManager.Infra.SqlServer.Query.Semanas
 
 				var dias = resultado.GroupBy(
 					k => k.Inicio.Date,
-					v => new ReservaViewModel(
+					v => new HorarioViewModel(
 						v.Id, 
 						new ClienteViewModel(), 
 						v.Inicio.TimeOfDay, 
 						v.Fim.TimeOfDay),
 					(k, v) => new DiaDaSemanaViewModel(k, v.ToArray())); ;
 
-				return new SemanaViewModel(dias.ToArray());
+				return dias.ToArray();
 
 			} catch (Exception ex)
 			{

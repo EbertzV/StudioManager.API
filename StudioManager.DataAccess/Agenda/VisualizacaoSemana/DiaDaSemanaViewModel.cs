@@ -4,13 +4,15 @@
     {
         public DiaDaSemanaViewModel(
             DateTime dia, 
-            ReservaViewModel[] reservas)
+            HorarioViewModel[] reservas)
         {
             Dia = dia;
+            DiaDaSemana = dia.DayOfWeek;
             Reservas = reservas;
         }
 
         public DateTime Dia { get; }
-        public ReservaViewModel[] Reservas { get; }
+        public DayOfWeek DiaDaSemana { get; }
+        public HorarioViewModel[] Reservas { get; }
     }
 }
